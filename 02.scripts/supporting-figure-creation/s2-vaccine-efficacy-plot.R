@@ -687,7 +687,7 @@ efficacy_models <- efficacy_models |>
   )
 
 # plot
-ggplot(efficacy_models, aes(x = time)) +
+intervention_efficacy_plot <- ggplot(efficacy_models, aes(x = time)) +
   # 95% CrI
   geom_ribbon(
     aes(ymin = lower * 100, ymax = upper * 100),
@@ -734,4 +734,5 @@ ggplot(efficacy_models, aes(x = time)) +
     axis.title.y      = element_text(margin = margin(r = 8))
   )
 
-ggsave("./05.plots/publication-plots/main-text/intervention-efficacy.png", width = 8, height = 6, dpi = 600)
+ggsave("./05.plots/publication-plots/main-text/intervention-efficacy.png", plot = intervention_efficacy_plot, width = 8, height = 6, dpi = 600)
+ggsave("./05.plots/publication-plots/main-text/intervention-efficacy.pdf", plot = intervention_efficacy_plot, width = 8, height = 6, dpi = 600)

@@ -267,12 +267,13 @@ make_ce_plot_main <- function(summary_df,
 ce_1 <- make_ce_plot_main(ce_summary, outcome = "cases", cost_label = "$4")
 ce_2 <- make_ce_plot_main(ce_summary, outcome = "dalys", cost_label = "$4")
 
-ce_1 / ce_2 +
+ce_results_main_text_plot <- ce_1 / ce_2 +
   plot_annotation(tag_levels = "A") +
   plot_layout(guides = "collect") &
   theme(legend.position = "bottom")
 
-ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.png", width = 10, height = 7, dpi = 600)
+ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.png", plot = ce_results_main_text_plot, width = 10, height = 7, dpi = 600)
+ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.pdf", plot = ce_results_main_text_plot, width = 10, height = 7, dpi = 600)
 
 # Make this in table summary
 # Function: format_icer
