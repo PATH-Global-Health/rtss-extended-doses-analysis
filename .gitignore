@@ -1,0 +1,27 @@
+.Rproj.user/
+.Rhistory
+.RData
+.DS_Store
+Thumbs.db
+
+# Large fitted model object used only to regenerate the intervention efficacy plot.
+01.data/inputs/uncertainty-params/model.4.RDS
+02.scripts/supporting-figure-creation/ab_runs_*.txt
+02.scripts/supporting-figure-creation/titre_*.txt
+
+# Development history and internal working materials.
+backup/
+02.scripts/archive/
+04.documentation/
+06.MPAG/
+CHANGELOG_stepwise.md
+
+# Generated simulation outputs. Curated paper outputs are kept below.
+03.outputs/*
+!03.outputs/paper-results/
+!03.outputs/paper-results/**
+
+# Generated plots. Curated publication plots and tables are kept below.
+05.plots/*
+!05.plots/publication-plots/
+!05.plots/publication-plots/**
