@@ -152,8 +152,8 @@ deaths <-
 ### Save
 public_health_impact_plot <- cases / deaths + plot_annotation(tag_levels = "A")
 
-ggsave("./05.plots/publication-plots/main-text/public-health-impact-plot1.png", plot = public_health_impact_plot, width = 8, height = 6, dpi = 600)
-ggsave("./05.plots/publication-plots/main-text/public-health-impact-plot1.pdf", plot = public_health_impact_plot, width = 8, height = 6, dpi = 600)
+ggsave("./05.plots/publication-plots/main-text/public-health-impact-plot1.png", plot = public_health_impact_plot, width = 8, height = 6, dpi = 600, bg = "white")
+ggsave("./05.plots/publication-plots/main-text/public-health-impact-plot1.pdf", plot = public_health_impact_plot, width = 8, height = 6, dpi = 600, bg = "white")
 
 ###-Summary table for appendix and pull to main text----------------
 ### proportion of cases and deaths averted
@@ -462,8 +462,12 @@ incremental_impact_plot <- ggplot(
     linewidth = 0.7
   ) +
   scale_color_manual(values = c(
-    "#C75687",
-    "#BCBD8B"
+    "Hybrid delivery" = "#C75687",
+    "Seasonal delivery" = "#BCBD8B"
+  )) +
+  scale_fill_manual(values = c(
+    "Hybrid delivery" = "#C75687",
+    "Seasonal delivery" = "#BCBD8B"
   ))
 
 ggsave("./05.plots/publication-plots/main-text/incrremental-impact-plot1.png", plot = incremental_impact_plot, width = 8, height = 3.5, dpi = 600)

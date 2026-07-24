@@ -686,23 +686,29 @@ efficacy_models <- efficacy_models |>
     model = factor(model, levels = c("Model 1", "Model 2", "Model 3"))
   )
 
+intervention_colors <- c(
+  "RTSS 5 dose" = "#94623d",
+  "RTSS 7 dose" = "#5489d0",
+  "SP+AQ" = "#3f3f3f"
+)
+
 # plot
 intervention_efficacy_plot <- ggplot(efficacy_models, aes(x = time)) +
   # 95% CrI
   geom_ribbon(
-    aes(ymin = lower * 100, ymax = upper * 100),
+    aes(ymin = lower * 100, ymax = upper * 100, fill = name),
     alpha = 0.15,
     colour = NA
   ) +
   # 50% CrI
   geom_ribbon(
-    aes(ymin = lower_50 * 100, ymax = upper_50 * 100),
+    aes(ymin = lower_50 * 100, ymax = upper_50 * 100, fill = name),
     alpha = 0.35,
     colour = NA
   ) +
   # Median profile
   geom_line(
-    aes(y = median * 100),
+    aes(y = median * 100, color = name),
     linewidth = 0.6
   ) +
   # Model 3 “combined” enhancement – only in Model 3 panels
@@ -722,6 +728,8 @@ intervention_efficacy_plot <- ggplot(efficacy_models, aes(x = time)) +
     breaks = seq(0, 100, 20),
     limits = c(0, 100)
   ) +
+  scale_fill_manual(values = intervention_colors) +
+  scale_color_manual(values = intervention_colors) +
   facet_grid(model ~ name, scales = "free_x") +
   theme_minimal(base_size = 12) +
   theme(

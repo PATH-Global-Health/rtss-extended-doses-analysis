@@ -221,45 +221,48 @@ make_ce_plot_main <- function(summary_df,
       cost_per_dose == cost_label
     )
 
-  ggplot(plot_data) +
+  ggplot(
+    plot_data,
+    aes(
+      x = (pfpr * 100),
+      y = .data[[y_med_col]],
+      color = dosing_assumption,
+      fill = dosing_assumption,
+      linetype = RTSS,
+      group = interaction(dosing_assumption, RTSS)
+    )
+  ) +
     # 95% CI ribbon FIRST so it sits under the lines
     geom_ribbon(
       aes(
-        x     = (pfpr * 100),
         ymin  = .data[[y_l95_col]],
-        ymax  = .data[[y_u95_col]],
-        group = interaction(dosing_assumption, RTSS)
+        ymax  = .data[[y_u95_col]]
       ),
       alpha = 0.3,
+      linetype = 0,
       colour = NA
     ) +
     # Median line
-    geom_line(
-      aes(
-        x        = (pfpr * 100),
-        y        = .data[[y_med_col]],
-        group    = interaction(dosing_assumption, RTSS)
-      ),
-      linewidth = 0.4
-    ) +
+    geom_line(linewidth = 0.4) +
     # Median points
-    geom_point(
-      aes(
-        x   = (pfpr * 100),
-        y   = .data[[y_med_col]]
-      ),
-      size = 0.6
-    ) +
-    facet_grid(seasonality ~ RTSS + dosing_assumption, scales = "free_y") +
+    geom_point(size = 0.6) +
+    facet_grid(. ~ seasonality) +
     scale_x_continuous(breaks = c(3, 5, 10, 15, 20, 25, 35, 45, 55, 65)) +
     scale_y_continuous(limits=c(0,NA))+
+    scale_color_manual(values = colors_labels) +
+    scale_fill_manual(values = colors_labels) +
+    scale_linetype_manual(values = c(
+      "Hybrid delivery" = "solid",
+      "Seasonal delivery" = "dashed"
+    )) +
     theme_minimal(8) +
     labs(
       x = "PfPR 2–10 (%)",
       y = y_label,
       subtitle = subtitle,
       color = "Dosing Schedule",
-      fill = "Dosing Schedule"
+      fill = "Dosing Schedule",
+      linetype = "RTSS"
     )
 }
 
@@ -272,8 +275,8 @@ ce_results_main_text_plot <- ce_1 / ce_2 +
   plot_layout(guides = "collect") &
   theme(legend.position = "bottom")
 
-ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.png", plot = ce_results_main_text_plot, width = 10, height = 7, dpi = 600)
-ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.pdf", plot = ce_results_main_text_plot, width = 10, height = 7, dpi = 600)
+ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.png", plot = ce_results_main_text_plot, width = 10, height = 7, dpi = 600, bg = "white")
+ggsave("./05.plots/publication-plots/main-text/ce-results-main-text.pdf", plot = ce_results_main_text_plot, width = 10, height = 7, dpi = 600, bg = "white")
 
 # Make this in table summary
 # Function: format_icer
