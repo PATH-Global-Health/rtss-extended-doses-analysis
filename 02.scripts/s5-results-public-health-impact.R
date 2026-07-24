@@ -550,7 +550,8 @@ incremental_long <-
   incremental_long |>
   mutate(SMC = case_when(
     SMC == 0 ~ "No SMC",
-    SMC == 0.75 ~ "SMC (75% coverage)"
+    SMC == 0.75 ~ "SMC (75% coverage)",
+    TRUE ~ as.character(SMC)
   ))
 
 ggplot(
@@ -893,7 +894,7 @@ writexl::write_xlsx(list(`Table S2-1` = ph_impact_u5_table,
 ggplot(
   incremental_long |>
     filter(
-      SMC == 0,
+      SMC == "No SMC",
       coverage_assumption == "S2-moderate-dropout",
     ),
   aes(
